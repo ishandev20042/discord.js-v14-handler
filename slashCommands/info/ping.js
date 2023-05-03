@@ -1,13 +1,20 @@
-const { ApplicationCommandType } = require("discord.js");
+const {
+  Client,
+  CommandInteraction,
+  ApplicationCommandType,
+} = require("discord.js");
 
 module.exports = {
   name: "ping",
-  description: "Check bot's ping.",
+  description: "returns websocket ping",
   type: ApplicationCommandType.ChatInput,
-  cooldown: 3000,
-  run: async (client, interaction) => {
-    interaction.reply({
-      content: `🏓 Pong! Latency: **${Math.round(client.ws.ping)} ms**`,
-    });
+  /**
+   *
+   * @param {Client} client
+   * @param {CommandInteraction} interaction
+   * @param {String[]} args
+   */
+  run: async (client, interaction, args) => {
+    interaction.followUp({ content: `${client.ws.ping}ms!` });
   },
 };

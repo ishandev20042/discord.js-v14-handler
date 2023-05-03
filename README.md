@@ -1,1 +1,3 @@
-A chopped up version of Nathaniel's Handler for Youtube series of ishandev2004. Please check them out.
+# Discord V14 Handler.
+
+Old v13 handler made for v14.

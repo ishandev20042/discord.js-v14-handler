@@ -1,37 +1,11 @@
-const {
-  Client,
-  GatewayIntentBits,
-  Partials,
-  Collection,
-} = require("discord.js");
+const { Client, Collection } = require("discord.js");
+
 const client = new Client({
-  intents: [
-    GatewayIntentBits.Guilds,
-    GatewayIntentBits.GuildMessages,
-    GatewayIntentBits.GuildPresences,
-    GatewayIntentBits.GuildMessageReactions,
-    GatewayIntentBits.DirectMessages,
-    GatewayIntentBits.MessageContent,
-  ],
-  partials: [
-    Partials.Channel,
-    Partials.Message,
-    Partials.User,
-    Partials.GuildMember,
-    Partials.Reaction,
-  ],
+  intents: 32767,
 });
-
-const fs = require("fs");
-const { token } = require("./config.json");
-client.aliases = new Collection();
-client.slashCommands = new Collection();
-client.buttons = new Collection();
-
 module.exports = client;
+client.slashCommands = new Collection();
+client.config = require("./config.json");
+require("./handler")(client);
 
-fs.readdirSync("./handlers").forEach((handler) => {
-  require(`./handlers/${handler}`)(client);
-});
-
-client.login(token);
+client.login(client.config.token);
